@@ -16,7 +16,7 @@ import java.util.List;
 
 import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
-public class StockTickerGraphqlPublisher {
+class StockTickerGraphqlPublisher {
     private final static StockTickerPublisher STOCK_TICKER_PUBLISHER = new StockTickerPublisher();
 
     private final GraphQLSchema graphQLSchema;

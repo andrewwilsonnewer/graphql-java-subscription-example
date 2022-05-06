@@ -76,7 +76,7 @@ public class StockTickerWebSocket extends WebSocketAdapter {
 
         Publisher<ExecutionResult> stockPriceStream = executionResult.getData();
 
-        stockPriceStream.subscribe(new Subscriber<ExecutionResult>() {
+        stockPriceStream.subscribe(new Subscriber<>() {
 
             @Override
             public void onSubscribe(Subscription s) {
@@ -86,7 +86,7 @@ public class StockTickerWebSocket extends WebSocketAdapter {
 
             @Override
             public void onNext(ExecutionResult er) {
-                log.debug("Sending stick price update");
+                log.debug("Sending stock price update");
                 try {
                     Object stockPriceUpdate = er.getData();
                     getRemote().sendString(JsonKit.toJsonString(stockPriceUpdate));

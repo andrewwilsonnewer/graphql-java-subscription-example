@@ -1,16 +1,20 @@
 package com.graphql.example.http;
 
-import org.eclipse.jetty.websocket.servlet.WebSocketServlet;
-import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
+
+import org.eclipse.jetty.websocket.server.JettyWebSocketServlet;
+import org.eclipse.jetty.websocket.server.JettyWebSocketServletFactory;
+
+import java.time.Duration;
 
 /**
  * In Jetty this is how you map a servlet to a websocket per request
  */
-public class StockTickerServlet extends WebSocketServlet {
+class StockTickerServlet extends JettyWebSocketServlet {
+
     @Override
-    public void configure(WebSocketServletFactory factory) {
-        factory.getPolicy().setMaxTextMessageBufferSize(1024 * 1024);
-        factory.getPolicy().setIdleTimeout(30 * 1000);
+    protected void configure(JettyWebSocketServletFactory factory) {
+        factory.setMaxTextMessageSize(1024 * 1024);
+        factory.setIdleTimeout(Duration.ofSeconds(30));
         factory.register(StockTickerWebSocket.class);
     }
 }

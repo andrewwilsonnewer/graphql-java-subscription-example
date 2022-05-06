@@ -61,7 +61,7 @@ The result of that initial subscription query is a http://www.reactive-streams.o
 
         Publisher<ExecutionResult> stockPriceStream = executionResult.getData();
         
-Under the covers a RxJava 2.x implementation is used to provide a stream of synthesized stock events.
+Under the covers a RxJava 3.x implementation is used to provide a stream of synthesized stock events.
 
 Rxjava Flows are an implementation of the reactive streams Publisher interface.  You can use ANY reactive streams
 implementation as a source.  graphql-java uses the reactive streams interfaces as a common interface.

@@ -1,19 +1,18 @@
 package com.graphql.example.http;
 
-import graphql.schema.GraphQLSchema;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.websocket.server.config.JettyWebSocketServletContainerInitializer;
 
 /**
  * An very simple example of serving a qraphql schema over http and using websockets for subscriptions.
  * <p>
  * More info can be found here : http://graphql.org/learn/serving-over-http/
  */
-@SuppressWarnings("unchecked")
 public class HttpMain {
 
     private static final int PORT = 3000;
@@ -23,13 +22,13 @@ public class HttpMain {
         // This example uses Jetty as an embedded HTTP server
         Server server = new Server(PORT);
 
-        //
         // In Jetty, handlers are how your get called back on a request
         ServletContextHandler servletContextHandler = new ServletContextHandler();
         servletContextHandler.setContextPath("/");
 
-        ServletHolder stockTicker = new ServletHolder("ws-stockticker", StockTickerServlet.class);
+        ServletHolder stockTicker = new ServletHolder("ws-stockticker", new StockTickerServlet());
         servletContextHandler.addServlet(stockTicker, "/stockticker");
+        JettyWebSocketServletContainerInitializer.configure(servletContextHandler, null);
 
         // this allows us to server our index.html and GraphIQL JS code
         ResourceHandler resource_handler = new ResourceHandler();
